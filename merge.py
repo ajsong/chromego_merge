@@ -97,6 +97,7 @@ def process_clash(data, index):
             alterId = proxy.get("alterId", "")
             network = proxy.get("network", "")
             tls = int(proxy.get("tls", 0))
+            insecure = int(proxy.get("skip-cert-verify", 0))
             if tls == 0:
                 security = "none"
             elif tls == 1:
