@@ -110,8 +110,11 @@ def process_clash(data, index):
             )
             location = get_physical_location(server)
             name = f"{location}_vmess_{index}"
-            vmess_meta = f"vmess://{uuid}@{server}:{port}?security={security}&allowInsecure{insecure}&type={network}&fp={fp}&sni={sni}&path={ws_path}&host={ws_headers_host}#{name}"
-
+            # vmess_meta = f"vmess://{uuid}@{server}:{port}?security={security}&allowInsecure{insecure}&type={network}&fp={fp}&sni={sni}&path={ws_path}&host={ws_headers_host}#{name}"
+            meta_content = f"{uuid}@{server}:{port}?security={security}&allowInsecure{insecure}&type={network}&fp={fp}&sni={sni}&path={ws_path}&host={ws_headers_host}#{name}"
+            base64_content = base64.b64encode(meta_content.encode()).decode()
+            vmess_meta = f"vmess://{base64_content}"
+            
             merged_proxies.append(vmess_meta)
 
         elif proxy["type"] == "tuic":
